@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -19,5 +20,10 @@ public class Enemy : MonoBehaviour
         temp = transform.position;
         temp.z -= speed * Time.deltaTime;
         transform.position = temp;
+        //lose condition
+        if(temp.z < -11)
+        {
+            SceneManager.LoadScene("Main");
+        }
     }
 }

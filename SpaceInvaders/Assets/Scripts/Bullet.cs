@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GM = GameObject.Find("GM").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -19,6 +19,10 @@ public class Bullet : MonoBehaviour
         temp = transform.position;
         temp.z += speed * Time.deltaTime;
         transform.position = temp;
+        if(temp.z > 100)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -27,6 +31,10 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
             Destroy(collision.gameObject);
+            GM.enemies--;
+            GM.GUIEnemies.text = "Enemies: " + GM.enemies;
+            GM.score += 10;
+            GM.GUIScore.text = "Score: " + GM.score;
         }
     }
 }

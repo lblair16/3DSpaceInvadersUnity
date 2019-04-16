@@ -1,19 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     //level info
     int level;
-    //public List<Enemy> enemies;
-    int enemies;
+    public int enemies;
+    public int score;
     public GameObject enemy;
+    public Text GUIScore;
+    public Text GUILevel;
+    public Text GUIEnemies;
 
     // Start is called before the first frame update
     void Start()
     {
         enemies = 0;
+        score = 0;
+        GUIScore.text = "Score: " + score;
     }
 
     // Update is called once per frame
@@ -25,12 +31,16 @@ public class GameManager : MonoBehaviour
             //spawn enemies
             SpawnEnemies(10);
             enemies = 10;
+            GUIEnemies.text = "Enemies: " + enemies;
+            GUILevel.text = "Level: " + level;
         }
         else if(enemies == 0)
         {
             level++;
-            enemies = level * 20;
-            SpawnEnemies(level * 20);
+            enemies = 10 + (level * 3);
+            SpawnEnemies(10 + (level * 3));
+            GUIEnemies.text = "Enemies: " + enemies;
+            GUILevel.text = "Level: " + level;
         }
     }
 
@@ -38,7 +48,7 @@ public class GameManager : MonoBehaviour
     {
         for(int i = 0; i < num; i++)
         {
-            Vector3 temp = new Vector3(Random.Range(-10f, 10f), Random.Range(-10f, 10f), Random.Range(50f, 100f));
+            Vector3 temp = new Vector3(Random.Range(-8f, 8f), Random.Range(-8f, 8f), Random.Range(50f, 100f));
             Instantiate(enemy, temp, Quaternion.identity);
         }
     }
